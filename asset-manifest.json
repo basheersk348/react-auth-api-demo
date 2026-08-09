@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/react-auth-api-demo/static/js/main.59514212.js",
+    "main.js": "/react-auth-api-demo/static/js/main.f922fbcf.js",
     "index.html": "/react-auth-api-demo/index.html",
-    "main.59514212.js.map": "/react-auth-api-demo/static/js/main.59514212.js.map"
+    "main.f922fbcf.js.map": "/react-auth-api-demo/static/js/main.f922fbcf.js.map"
   },
   "entrypoints": [
-    "static/js/main.59514212.js"
+    "static/js/main.f922fbcf.js"
   ]
 }
