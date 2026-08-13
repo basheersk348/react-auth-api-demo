@@ -20,7 +20,7 @@ export default function Login({ onLogin }) {
   };
 
   return (
-    <div>
+    <div style={{ padding: '20px' }}>
       <Header title="Welcome to Login" />
       <h2>Login</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}

@@ -25,18 +25,18 @@ function PublicRoute({ children }) {
 export default function App() {
   const handleLoginSuccess = (email) => {
     localStorage.setItem('loggedInUser', email);
-    window.location.href = '/home'; // Forces state refresh cleanly
+    window.location.href = '/home';
   };
 
   const handleLogout = () => {
     localStorage.removeItem('loggedInUser');
-    window.location.href = '/login'; // Forces state refresh cleanly
+    window.location.href = '/login';
   };
 
   return (
     <BrowserRouter>
       <Routes>
-        {/* Default route sends user to /login */}
+        {/* Default route redirects to /login */}
         <Route path="/" element={<Navigate to="/login" replace />} />
 
         {/* Public Routes */}
@@ -67,7 +67,7 @@ export default function App() {
           }
         />
 
-        {/* Catch-all fallback */}
+        {/* Fallback route */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
