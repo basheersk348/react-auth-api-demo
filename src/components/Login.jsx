@@ -9,6 +9,7 @@ export default function Login({ onLogin }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const savedUser = JSON.parse(localStorage.getItem('registeredUser'));
 
     if (savedUser && savedUser.email === email && savedUser.password === password) {
@@ -23,17 +24,31 @@ export default function Login({ onLogin }) {
     <div style={{ padding: '20px' }}>
       <Header title="Welcome to Login" />
       <h2>Login</h2>
+      
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <form onSubmit={handleSubmit}>
         <p>
-          Email: <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          Email:{' '}
+          <input 
+            type="email" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+            required 
+          />
         </p>
         <p>
-          Password: <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          Password:{' '}
+          <input 
+            type="password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)} 
+            required 
+          />
         </p>
         <button type="submit">Log In</button>
       </form>
+
       <p>
         Need an account? <Link to="/signup">Go to Sign Up</Link>
       </p>

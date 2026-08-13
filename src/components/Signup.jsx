@@ -41,18 +41,36 @@ export default function Signup({ onSignup }) {
     <div style={{ padding: '20px' }}>
       <Header title="Welcome to Sign Up" />
       <h2>Sign Up</h2>
+
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <form onSubmit={handleSubmit}>
         <p>
-          Email: <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          Email:{' '}
+          <input 
+            type="email" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+            required 
+          />
         </p>
         <p>
-          Password: <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          Password:{' '}
+          <input 
+            type="password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)} 
+            required 
+          />
         </p>
         <p>
           Confirm Password:{' '}
-          <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+          <input 
+            type="password" 
+            value={confirmPassword} 
+            onChange={(e) => setConfirmPassword(e.target.value)} 
+            required 
+          />
         </p>
         <button type="submit">Sign Up</button>
       </form>

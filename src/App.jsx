@@ -4,7 +4,6 @@ import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import Home from './components/Home.jsx';
 
-// Inline ProtectedRoute component
 function ProtectedRoute({ children }) {
   const user = localStorage.getItem('loggedInUser');
   if (!user) {
@@ -13,7 +12,6 @@ function ProtectedRoute({ children }) {
   return children;
 }
 
-// Inline PublicRoute component
 function PublicRoute({ children }) {
   const user = localStorage.getItem('loggedInUser');
   if (user) {
@@ -25,21 +23,19 @@ function PublicRoute({ children }) {
 export default function App() {
   const handleLoginSuccess = (email) => {
     localStorage.setItem('loggedInUser', email);
-    window.location.href = '/home';
+    window.location.href = `${process.env.PUBLIC_URL}/home`;
   };
 
   const handleLogout = () => {
     localStorage.removeItem('loggedInUser');
-    window.location.href = '/login';
+    window.location.href = `${process.env.PUBLIC_URL}/login`;
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
-        {/* Default route redirects to /login */}
         <Route path="/" element={<Navigate to="/login" replace />} />
 
-        {/* Public Routes */}
         <Route
           path="/login"
           element={
@@ -57,7 +53,6 @@ export default function App() {
           }
         />
 
-        {/* Protected Home Route */}
         <Route
           path="/home"
           element={
@@ -67,7 +62,6 @@ export default function App() {
           }
         />
 
-        {/* Fallback route */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
