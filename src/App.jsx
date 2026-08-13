@@ -1,39 +1,75 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import Home from './components/Home.jsx';
 
-// Child component inside App to access useNavigate hook safely
-function AppRoutes() {
-  const navigate = useNavigate();
+// Inline ProtectedRoute component
+function ProtectedRoute({ children }) {
+  const user = localStorage.getItem('loggedInUser');
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+}
 
-  // Navigation handlers
-  const handleAuthSuccess = (userEmail) => {
-    localStorage.setItem('loggedInUser', userEmail);
-    navigate('/home'); // Programmatic navigation
+// Inline PublicRoute component
+function PublicRoute({ children }) {
+  const user = localStorage.getItem('loggedInUser');
+  if (user) {
+    return <Navigate to="/home" replace />;
+  }
+  return children;
+}
+
+export default function App() {
+  const handleLoginSuccess = (email) => {
+    localStorage.setItem('loggedInUser', email);
+    window.location.href = '/home'; // Forces state refresh cleanly
   };
 
   const handleLogout = () => {
     localStorage.removeItem('loggedInUser');
-    navigate('/login'); // Programmatic navigation
+    window.location.href = '/login'; // Forces state refresh cleanly
   };
 
   return (
-    <Routes>
-      <Route path="/" element={<Login onLogin={handleAuthSuccess} />} />
-      <Route path="/login" element={<Login onLogin={handleAuthSuccess} />} />
-      <Route path="/signup" element={<Signup onSignup={handleAuthSuccess} />} />
-      <Route path="/home" element={<Home onLogout={handleLogout} />} />
-    </Routes>
-  );
-}
-
-// Parent Component
-export default function App() {
-  return (
     <BrowserRouter>
-      <AppRoutes />
+      <Routes>
+        {/* Default route sends user to /login */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
+        {/* Public Routes */}
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login onLogin={handleLoginSuccess} />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <PublicRoute>
+              <Signup onSignup={handleLoginSuccess} />
+            </PublicRoute>
+          }
+        />
+
+        {/* Protected Home Route */}
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home onLogout={handleLogout} />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Catch-all fallback */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
     </BrowserRouter>
   );
 }

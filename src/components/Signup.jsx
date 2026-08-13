@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Header from './Header.jsx';
 
-export default function Signup({ onSignup, onNavigate }) {
-  // Form input state
+export default function Signup({ onSignup }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
 
-  // 1. State for fetched API data
   const [postData, setPostData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 2. Fetch data automatically when this page opens
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/posts/1')
-      .then((response) => response.json()) // Convert response to JavaScript object
+      .then((response) => response.json())
       .then((data) => {
-        setPostData(data); // Save fetched data in state
-        setLoading(false); // Turn off loading message
+        setPostData(data);
+        setLoading(false);
       })
       .catch((err) => {
         console.error('Error fetching data:', err);
@@ -41,7 +39,7 @@ export default function Signup({ onSignup, onNavigate }) {
 
   return (
     <div style={{ padding: '20px' }}>
-      <Header title="Welcome to Sign Up" onNavigate={onNavigate} />
+      <Header title="Welcome to Sign Up" />
       <h2>Sign Up</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
@@ -53,21 +51,18 @@ export default function Signup({ onSignup, onNavigate }) {
           Password: <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </p>
         <p>
-          Confirm Password: <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+          Confirm Password:{' '}
+          <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
         </p>
         <button type="submit">Sign Up</button>
       </form>
 
       <p>
-        Already have an account?{' '}
-        <button type="button" onClick={() => onNavigate('login')}>
-          Go to Login
-        </button>
+        Already have an account? <Link to="/login">Go to Login</Link>
       </p>
 
       <hr style={{ margin: '30px 0' }} />
 
-      {/* 3. Render Fetched API Data below the form */}
       <div style={{ border: '2px dashed #007bff', padding: '15px', borderRadius: '8px', maxWidth: '500px' }}>
         <h3>Fetched API Data Task</h3>
         {loading ? (
