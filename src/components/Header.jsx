@@ -21,7 +21,7 @@ export default function Header({ title, onLogout }) {
           </>
         ) : (
           <>
-            <Link to="/login">Login</Link> | <Link to="/signup">Sign Up</Link>
+            <Link to="/">Login</Link> | <Link to="/signup">Sign Up</Link>
           </>
         )}
       </nav>

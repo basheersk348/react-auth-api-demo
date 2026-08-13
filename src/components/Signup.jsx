@@ -76,7 +76,7 @@ export default function Signup({ onSignup }) {
       </form>
 
       <p>
-        Already have an account? <Link to="/login">Go to Login</Link>
+        Already have an account? <Link to="/">Go to Login</Link>
       </p>
 
       <hr style={{ margin: '30px 0' }} />
